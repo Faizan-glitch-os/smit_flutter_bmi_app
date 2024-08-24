@@ -42,11 +42,11 @@ class WeightAndAgeContainerWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularButtonWiget(
+              CircularButtonWidget(
                 icon: FontAwesomeIcons.minus,
                 onPress: decrement,
               ),
-              CircularButtonWiget(
+              CircularButtonWidget(
                 icon: Icons.add,
                 onPress: increment,
               ),

@@ -5,8 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'constants.dart';
 
-class CircularButtonWiget extends StatelessWidget {
-  const CircularButtonWiget(
+class CircularButtonWidget extends StatelessWidget {
+  const CircularButtonWidget(
       {super.key, required this.icon, required this.onPress});
 
   final IconData icon;
