@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smit_flutter_bmi_app/constants.dart';
+import 'package:smit_flutter_bmi_app/result_screen.dart';
 import 'package:smit_flutter_bmi_app/weight_and_age_container_widget.dart';
 
+import 'bottom_button_widget.dart';
 import 'gender_container_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,14 +16,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int height = 150;
+  double height = 5.0;
   int weight = 50;
   int age = 30;
+  double result = 0;
+
+  String title = 'NORMAL';
+  String message = 'Nothing';
+  Color titleColor = Colors.white;
+
   Color maleContainerColor = containerInActive;
   Color femaleContainerColor = containerInActive;
 
   void ContainerColor(String gender) {
-    if (gender == 'Male') {
+    if (gender == 'Male' && femaleContainerColor == containerInActive) {
       if (maleContainerColor == containerActive) {
         setState(() {
           maleContainerColor = containerInActive;
@@ -31,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
           maleContainerColor = containerActive;
         });
       }
-    } else if (gender == 'Female') {
+    } else if (gender == 'Female' && maleContainerColor == containerInActive) {
       if (femaleContainerColor == containerActive) {
         setState(() {
           femaleContainerColor = containerInActive;
@@ -68,6 +76,35 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  void calculateResult() {
+    double heightInMeter = height * 0.3048;
+
+    double heightSquare = heightInMeter * heightInMeter;
+
+    result = weight / heightSquare;
+
+    if (result < 20) {
+      titleColor = Colors.red;
+      title = 'UNDERWEIGHT';
+      message =
+          'Danger, your BMI is very low, please take a good diet to improve your BMI';
+    } else if (result > 20 && result < 26) {
+      titleColor = Colors.green;
+      title = 'NORMAL';
+      message = 'Great, your BMI is normal, keep it up';
+    } else if (result > 25 && result < 30) {
+      titleColor = Colors.redAccent;
+      title = 'OVERWEIGHT';
+      message =
+          'Danger, BMI is too high, please control your diet and do some exercise';
+    } else if (result > 20 && result < 26) {
+      titleColor = Colors.red;
+      title = 'OBESE';
+      message =
+          'Danger, BMI is too high, please control your diet and do some exercise';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +123,7 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 Expanded(
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(10.r),
                     onTap: () {
                       ContainerColor('Male');
                     },
@@ -98,6 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 Expanded(
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(10.r),
                     onTap: () {
                       ContainerColor('Female');
                     },
@@ -125,23 +164,27 @@ class _MainScreenState extends State<MainScreen> {
                     'HEIGHT',
                     style: TextStyle(color: circularButton),
                   ),
-                  Text(
-                    height.toString(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                      text: height.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.sp,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: 'Foot(s)', style: TextStyle(fontSize: 10.sp))
+                  ])),
                   Slider(
                       value: height.toDouble(),
-                      min: 10,
-                      max: 300,
+                      min: 0.0,
+                      max: 10.0,
                       activeColor: accentColor,
                       overlayColor:
                           WidgetStateProperty.all(accentColor.withOpacity(.2)),
                       onChanged: (value) {
                         setState(() {
-                          height = value.toInt();
+                          height = double.parse(value.toStringAsFixed(2));
                         });
                       })
                 ],
@@ -171,17 +214,20 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
           ),
-          SizedBox(
-            width: ScreenUtil().screenWidth,
-            child: ElevatedButton(
-                style: ButtonStyle(
-                    shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0))),
-                    backgroundColor: WidgetStateProperty.all(accentColor),
-                    foregroundColor: WidgetStateProperty.all(Colors.white)),
-                onPressed: () {},
-                child: Text('Calculate')),
-          )
+          BottomButtonWidget(
+            title: 'Calculate',
+            onTap: () {
+              calculateResult();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return ResultScreen(
+                  title: title,
+                  message: message,
+                  titleColor: titleColor,
+                  result: result,
+                );
+              }));
+            },
+          ),
         ],
       ),
     );
