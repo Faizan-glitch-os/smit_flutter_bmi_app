@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'circular_button_widget.dart';
 import 'constants.dart';
 
 class WeightAndAgeContainerWidget extends StatelessWidget {
   const WeightAndAgeContainerWidget(
-      {super.key, required this.title, required this.number});
+      {super.key,
+      required this.title,
+      required this.number,
+      required this.increment,
+      required this.decrement});
 
   final String title;
   final int number;
+  final Function() increment;
+  final Function() decrement;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +44,11 @@ class WeightAndAgeContainerWidget extends StatelessWidget {
             children: [
               CircularButtonWiget(
                 icon: Icons.add,
+                onPress: increment,
               ),
               CircularButtonWiget(
-                icon: Icons.minus,
+                icon: FontAwesomeIcons.minus,
+                onPress: decrement,
               )
             ],
           ),

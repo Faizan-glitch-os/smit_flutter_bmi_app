@@ -6,8 +6,67 @@ import 'package:smit_flutter_bmi_app/weight_and_age_container_widget.dart';
 
 import 'gender_container_widget.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int height = 150;
+  int weight = 50;
+  int age = 30;
+  Color maleContainerColor = containerInActive;
+  Color femaleContainerColor = containerInActive;
+
+  void ContainerColor(String gender) {
+    if (gender == 'Male') {
+      if (maleContainerColor == containerActive) {
+        setState(() {
+          maleContainerColor = containerInActive;
+        });
+      } else {
+        setState(() {
+          maleContainerColor = containerActive;
+        });
+      }
+    } else if (gender == 'Female') {
+      if (femaleContainerColor == containerActive) {
+        setState(() {
+          femaleContainerColor = containerInActive;
+        });
+      } else {
+        setState(() {
+          femaleContainerColor = containerActive;
+        });
+      }
+    }
+  }
+
+  void IncrementWeight() {
+    setState(() {
+      weight++;
+    });
+  }
+
+  void DecrementWeight() {
+    setState(() {
+      weight--;
+    });
+  }
+
+  void IncrementAge() {
+    setState(() {
+      age++;
+    });
+  }
+
+  void DecrementAge() {
+    setState(() {
+      age--;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +85,27 @@ class MainScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: GenderContainerWidget(
-                    genderIcon: Icons.male,
-                    gender: 'MALE',
+                  child: InkWell(
+                    onTap: () {
+                      ContainerColor('Male');
+                    },
+                    child: GenderContainerWidget(
+                      genderIcon: Icons.male,
+                      gender: 'MALE',
+                      containerColor: maleContainerColor,
+                    ),
                   ),
                 ),
                 Expanded(
-                  child: GenderContainerWidget(
-                    genderIcon: Icons.female,
-                    gender: 'FEMALE',
+                  child: InkWell(
+                    onTap: () {
+                      ContainerColor('Female');
+                    },
+                    child: GenderContainerWidget(
+                      genderIcon: Icons.female,
+                      gender: 'FEMALE',
+                      containerColor: femaleContainerColor,
+                    ),
                   ),
                 )
               ],
@@ -47,7 +118,34 @@ class MainScreen extends StatelessWidget {
               decoration: BoxDecoration(
                   color: containerInActive,
                   borderRadius: BorderRadius.circular(10.r)),
-              child: Text('slider'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: TextStyle(color: circularButton),
+                  ),
+                  Text(
+                    height.toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Slider(
+                      value: height.toDouble(),
+                      min: 10,
+                      max: 300,
+                      activeColor: accentColor,
+                      overlayColor:
+                          WidgetStateProperty.all(accentColor.withOpacity(.2)),
+                      onChanged: (value) {
+                        setState(() {
+                          height = value.toInt();
+                        });
+                      })
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -57,13 +155,17 @@ class MainScreen extends StatelessWidget {
                 Expanded(
                   child: WeightAndAgeContainerWidget(
                     title: 'WEIGHT',
-                    number: 20,
+                    number: weight,
+                    increment: IncrementWeight,
+                    decrement: DecrementWeight,
                   ),
                 ),
                 Expanded(
                   child: WeightAndAgeContainerWidget(
                     title: 'AGE',
-                    number: 50,
+                    number: age,
+                    increment: IncrementAge,
+                    decrement: DecrementAge,
                   ),
                 )
               ],
