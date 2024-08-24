@@ -67,7 +67,7 @@ class ResultScreen extends StatelessWidget {
           BottomButtonWidget(
             title: 'Re-calculate',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                 return MainScreen();
               }));
             },

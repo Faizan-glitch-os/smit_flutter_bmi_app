@@ -218,7 +218,8 @@ class _MainScreenState extends State<MainScreen> {
             title: 'Calculate',
             onTap: () {
               calculateResult();
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
                 return ResultScreen(
                   title: title,
                   message: message,
