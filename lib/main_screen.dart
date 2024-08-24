@@ -112,7 +112,7 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         backgroundColor: background2,
         foregroundColor: Colors.white,
-        title: Text('BMI Calculator'),
+        title: const Text('BMI Calculator'),
         centerTitle: true,
       ),
       body: Column(

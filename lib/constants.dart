@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-final Color background1 = Color(0XFF0A0E21);
-final Color background2 = Color(0XFF0A0E28);
+const Color background1 = Color(0XFF0A0E21);
+const Color background2 = Color(0XFF0A0E28);
 
-final Color containerActive = Color(0XFF0A0E32);
-final Color containerInActive = Color(0XFF2b2a3c);
+const Color containerActive = Color(0XFF0A0E32);
+const Color containerInActive = Color(0XFF2b2a3c);
 
-final Color accentColor = Colors.redAccent;
+const Color accentColor = Colors.redAccent;
 
-final Color circularButton = Color(0XFF535365);
+const Color circularButton = Color(0XFF535365);

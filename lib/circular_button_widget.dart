@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'constants.dart';
 
@@ -18,7 +17,7 @@ class CircularButtonWidget extends StatelessWidget {
       style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(circularButton),
           foregroundColor: WidgetStateProperty.all(Colors.white),
-          shape: WidgetStateProperty.all(CircleBorder())),
+          shape: WidgetStateProperty.all(const CircleBorder())),
       onPressed: onPress,
       child: Icon(
         icon,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smit_flutter_bmi_app/result_screen.dart';
 
 import 'constants.dart';
 

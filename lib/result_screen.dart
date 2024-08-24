@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smit_flutter_bmi_app/bottom_button_widget.dart';
 import 'package:smit_flutter_bmi_app/constants.dart';
 import 'package:smit_flutter_bmi_app/main_screen.dart';
@@ -67,8 +66,9 @@ class ResultScreen extends StatelessWidget {
           BottomButtonWidget(
             title: 'Re-calculate',
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                return MainScreen();
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return const MainScreen();
               }));
             },
           ),
