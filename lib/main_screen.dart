@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   Color maleContainerColor = containerInActive;
   Color femaleContainerColor = containerInActive;
 
-  void ContainerColor(String gender) {
+  void containerColor(String gender) {
     if (gender == 'Male' && femaleContainerColor == containerInActive) {
       if (maleContainerColor == containerActive) {
         setState(() {
@@ -52,28 +52,24 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  void IncrementWeight() {
-    setState(() {
-      weight++;
-    });
+  void increment(String value) {
+    value == 'weight'
+        ? setState(() {
+            weight++;
+          })
+        : setState(() {
+            age++;
+          });
   }
 
-  void DecrementWeight() {
-    setState(() {
-      weight--;
-    });
-  }
-
-  void IncrementAge() {
-    setState(() {
-      age++;
-    });
-  }
-
-  void DecrementAge() {
-    setState(() {
-      age--;
-    });
+  void decrement(String value) {
+    value == 'weight'
+        ? setState(() {
+            weight--;
+          })
+        : setState(() {
+            age--;
+          });
   }
 
   void calculateResult() {
@@ -125,7 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10.r),
                     onTap: () {
-                      ContainerColor('Male');
+                      containerColor('Male');
                     },
                     child: GenderContainerWidget(
                       genderIcon: Icons.male,
@@ -138,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10.r),
                     onTap: () {
-                      ContainerColor('Female');
+                      containerColor('Female');
                     },
                     child: GenderContainerWidget(
                       genderIcon: Icons.female,
@@ -160,7 +156,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'HEIGHT',
                     style: TextStyle(color: circularButton),
                   ),
@@ -199,16 +195,16 @@ class _MainScreenState extends State<MainScreen> {
                   child: WeightAndAgeContainerWidget(
                     title: 'WEIGHT',
                     number: weight,
-                    increment: IncrementWeight,
-                    decrement: DecrementWeight,
+                    increment: increment,
+                    decrement: decrement,
                   ),
                 ),
                 Expanded(
                   child: WeightAndAgeContainerWidget(
                     title: 'AGE',
                     number: age,
-                    increment: IncrementAge,
-                    decrement: DecrementAge,
+                    increment: increment,
+                    decrement: decrement,
                   ),
                 )
               ],

@@ -16,8 +16,8 @@ class WeightAndAgeContainerWidget extends StatelessWidget {
 
   final String title;
   final int number;
-  final Function() increment;
-  final Function() decrement;
+  final Function(String value) increment;
+  final Function(String value) decrement;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +44,15 @@ class WeightAndAgeContainerWidget extends StatelessWidget {
             children: [
               CircularButtonWidget(
                 icon: FontAwesomeIcons.minus,
-                onPress: decrement,
+                onPress: () {
+                  decrement(title == 'WEIGHT' ? 'weight' : 'age');
+                },
               ),
               CircularButtonWidget(
                 icon: Icons.add,
-                onPress: increment,
+                onPress: () {
+                  increment(title == 'WEIGHT' ? 'weight' : 'age');
+                },
               ),
             ],
           ),
