@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   Color femaleContainerColor = containerInActive;
 
   void containerColor(String gender) {
-    if (gender == 'Male' && femaleContainerColor == containerInActive) {
+    if (gender == 'Male') {
       if (maleContainerColor == containerActive) {
         setState(() {
           maleContainerColor = containerInActive;
@@ -37,9 +37,10 @@ class _MainScreenState extends State<MainScreen> {
       } else {
         setState(() {
           maleContainerColor = containerActive;
+          femaleContainerColor = containerInActive;
         });
       }
-    } else if (gender == 'Female' && maleContainerColor == containerInActive) {
+    } else if (gender == 'Female') {
       if (femaleContainerColor == containerActive) {
         setState(() {
           femaleContainerColor = containerInActive;
@@ -47,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
       } else {
         setState(() {
           femaleContainerColor = containerActive;
+          maleContainerColor = containerInActive;
         });
       }
     }
